@@ -67,8 +67,8 @@ export default function Sidebar({
 
   return (
     <aside className={styles.sidebar}>
-      <h1>Linear Halftone</h1>
-      <p className={styles.subtitle}>Image → Halftone converter</p>
+      <h1>Bitmap Converter</h1>
+<parameter name="p className={styles.subtitle}>Image → Bitmap converter</p>
 
       <div
         className={styles.uploadZone}
