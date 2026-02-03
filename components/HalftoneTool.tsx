@@ -58,18 +58,42 @@ export default function HalftoneTool() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const processTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const settingsRef = useRef(settings);
+  const currentViewRef = useRef(currentView);
+  const isProcessingRef = useRef(false);
+
+  // Keep refs in sync
+  useEffect(() => {
+    settingsRef.current = settings;
+  }, [settings]);
+
+  useEffect(() => {
+    currentViewRef.current = currentView;
+  }, [currentView]);
 
   const processImage = useCallback(() => {
-    if (!originalImage || !canvasRef.current || isProcessing) return;
+    if (!originalImage || !canvasRef.current || isProcessingRef.current) return;
 
+    isProcessingRef.current = true;
     setIsProcessing(true);
 
     requestAnimationFrame(() => {
       const canvas = canvasRef.current;
-      if (!canvas) return;
+      if (!canvas) {
+        isProcessingRef.current = false;
+        setIsProcessing(false);
+        return;
+      }
 
       const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+      if (!ctx) {
+        isProcessingRef.current = false;
+        setIsProcessing(false);
+        return;
+      }
+
+      const currentSettings = settingsRef.current;
+      const view = currentViewRef.current;
 
       const width = originalImage.width;
       const height = originalImage.height;
@@ -83,11 +107,11 @@ export default function HalftoneTool() {
 
       // Remove background if enabled
       let mask: Uint8Array | null = null;
-      if (settings.removeBg) {
+      if (currentSettings.removeBg) {
         imageData = removeBackground(imageData, width, height, {
-          samplePosition: settings.bgSamplePosition,
-          tolerance: settings.bgTolerance,
-          softness: settings.bgSoftness,
+          samplePosition: currentSettings.bgSamplePosition,
+          tolerance: currentSettings.bgTolerance,
+          softness: currentSettings.bgSoftness,
         });
         mask = new Uint8Array(width * height);
         for (let i = 0; i < mask.length; i++) {
@@ -100,8 +124,8 @@ export default function HalftoneTool() {
 
       imageData = toGreyscale(imageData);
 
-      const contrast = settings.contrast - 1;
-      const brightness = settings.brightness;
+      const contrast = currentSettings.contrast - 1;
+      const brightness = currentSettings.brightness;
       imageData = adjustLevels(imageData, contrast, brightness);
 
       const newGreyscaleData = new ImageData(
@@ -111,18 +135,18 @@ export default function HalftoneTool() {
       );
       setGreyscaleData(newGreyscaleData);
 
-      if (currentView === 'halftone') {
+      if (view === 'halftone') {
         const options = {
-          frequency: settings.frequency,
-          angle: settings.angle,
-          thickness: settings.thickness,
-          shape: settings.shape,
-          invert: settings.invertOutput,
-          transparent: settings.transparentBg,
+          frequency: currentSettings.frequency,
+          angle: currentSettings.angle,
+          thickness: currentSettings.thickness,
+          shape: currentSettings.shape,
+          invert: currentSettings.invertOutput,
+          transparent: currentSettings.transparentBg,
           mask,
         };
 
-        switch (settings.method) {
+        switch (currentSettings.method) {
           case 'threshold':
             imageData = applyThreshold(newGreyscaleData, width, height, options);
             break;
@@ -137,22 +161,26 @@ export default function HalftoneTool() {
             imageData = applyHalftone(newGreyscaleData, width, height, options);
             break;
         }
-      } else if (currentView === 'original') {
+      } else if (view === 'original') {
         ctx.drawImage(originalImage, 0, 0);
+        isProcessingRef.current = false;
         setIsProcessing(false);
         return;
       }
 
       ctx.putImageData(imageData, 0, 0);
+      isProcessingRef.current = false;
       setIsProcessing(false);
     });
-  }, [originalImage, settings, currentView, isProcessing]);
+  }, [originalImage]);
 
   const debouncedProcess = useCallback(() => {
     if (processTimeoutRef.current) {
       clearTimeout(processTimeoutRef.current);
     }
-    processTimeoutRef.current = setTimeout(processImage, 50);
+    processTimeoutRef.current = setTimeout(() => {
+      processImage();
+    }, 50);
   }, [processImage]);
 
   useEffect(() => {
@@ -178,9 +206,12 @@ export default function HalftoneTool() {
   const handleExport = () => {
     if (!originalImage) return;
 
+    isProcessingRef.current = true;
     setIsProcessing(true);
 
     requestAnimationFrame(() => {
+      const currentSettings = settingsRef.current;
+      const view = currentViewRef.current;
       const scale = exportScale;
       const width = originalImage.width * scale;
       const height = originalImage.height * scale;
@@ -190,18 +221,22 @@ export default function HalftoneTool() {
       exportCanvas.height = height;
       const exportCtx = exportCanvas.getContext('2d');
 
-      if (!exportCtx) return;
+      if (!exportCtx) {
+        isProcessingRef.current = false;
+        setIsProcessing(false);
+        return;
+      }
 
       exportCtx.drawImage(originalImage, 0, 0, width, height);
 
       let imageData = exportCtx.getImageData(0, 0, width, height);
 
       let exportMask: Uint8Array | null = null;
-      if (settings.removeBg) {
+      if (currentSettings.removeBg) {
         imageData = removeBackground(imageData, width, height, {
-          samplePosition: settings.bgSamplePosition,
-          tolerance: settings.bgTolerance,
-          softness: settings.bgSoftness,
+          samplePosition: currentSettings.bgSamplePosition,
+          tolerance: currentSettings.bgTolerance,
+          softness: currentSettings.bgSoftness,
         });
         exportMask = new Uint8Array(width * height);
         for (let i = 0; i < exportMask.length; i++) {
@@ -210,22 +245,22 @@ export default function HalftoneTool() {
       }
 
       imageData = toGreyscale(imageData);
-      const contrast = settings.contrast - 1;
-      const brightness = settings.brightness;
+      const contrast = currentSettings.contrast - 1;
+      const brightness = currentSettings.brightness;
       imageData = adjustLevels(imageData, contrast, brightness);
 
-      if (currentView === 'halftone') {
+      if (view === 'halftone') {
         const options = {
-          frequency: settings.frequency / scale,
-          angle: settings.angle,
-          thickness: settings.thickness,
-          shape: settings.shape,
-          invert: settings.invertOutput,
-          transparent: settings.transparentBg,
+          frequency: currentSettings.frequency / scale,
+          angle: currentSettings.angle,
+          thickness: currentSettings.thickness,
+          shape: currentSettings.shape,
+          invert: currentSettings.invertOutput,
+          transparent: currentSettings.transparentBg,
           mask: exportMask,
         };
 
-        switch (settings.method) {
+        switch (currentSettings.method) {
           case 'threshold':
             imageData = applyThreshold(imageData, width, height, options);
             break;
@@ -249,6 +284,7 @@ export default function HalftoneTool() {
       link.href = exportCanvas.toDataURL('image/png');
       link.click();
 
+      isProcessingRef.current = false;
       setIsProcessing(false);
     });
   };
