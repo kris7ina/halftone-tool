@@ -75,20 +75,18 @@ export default function HalftoneTool() {
     if (!originalImage || !canvasRef.current || isProcessingRef.current) return;
 
     isProcessingRef.current = true;
-    setIsProcessing(true);
+    // Don't use setIsProcessing here - it causes re-renders and flashing
 
     requestAnimationFrame(() => {
       const canvas = canvasRef.current;
       if (!canvas) {
         isProcessingRef.current = false;
-        setIsProcessing(false);
         return;
       }
 
       const ctx = canvas.getContext('2d');
       if (!ctx) {
         isProcessingRef.current = false;
-        setIsProcessing(false);
         return;
       }
 
@@ -167,13 +165,11 @@ export default function HalftoneTool() {
       } else if (view === 'original') {
         ctx.drawImage(originalImage, 0, 0);
         isProcessingRef.current = false;
-        setIsProcessing(false);
         return;
       }
 
       ctx.putImageData(imageData, 0, 0);
       isProcessingRef.current = false;
-      setIsProcessing(false);
     });
   }, [originalImage]);
 
