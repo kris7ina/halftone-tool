@@ -1,4 +1,4 @@
-# Linear Halftone Tool
+# Halftone Tool
 
 A modern web application for converting images to halftone patterns, built with Next.js and React.
 
