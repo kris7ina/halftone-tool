@@ -174,20 +174,18 @@ export default function HalftoneTool() {
     });
   }, [originalImage]);
 
-  const debouncedProcess = useCallback(() => {
+  // Trigger processing when settings or view changes
+  useEffect(() => {
+    if (!originalImage) return;
+    
     if (processTimeoutRef.current) {
       clearTimeout(processTimeoutRef.current);
     }
+    
     processTimeoutRef.current = setTimeout(() => {
       processImage();
     }, 50);
-  }, [processImage]);
-
-  useEffect(() => {
-    if (originalImage) {
-      debouncedProcess();
-    }
-  }, [originalImage, debouncedProcess]);
+  }, [settings, currentView, originalImage, processImage]);
 
   const handleImageLoad = (file: File) => {
     const reader = new FileReader();
