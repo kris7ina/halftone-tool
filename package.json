@@ -1,0 +1,32 @@
+{
+  "name": "halftone-tool",
+  "version": "1.0.0",
+  "description": "Linear Halftone - Image to Halftone converter",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kris7ina/halftone-tool.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kris7ina/halftone-tool/issues"
+  },
+  "homepage": "https://github.com/kris7ina/halftone-tool#readme",
+  "dependencies": {
+    "@types/node": "^25.2.0",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "typescript": "^5.9.3"
+  }
+}

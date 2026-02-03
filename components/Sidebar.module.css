@@ -1,0 +1,267 @@
+.sidebar {
+  background: #000;
+  padding: 24px;
+  border-right: 1px solid #252525;
+  overflow-y: auto;
+}
+
+.sidebar h1 {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 32px;
+}
+
+.uploadZone {
+  border: 1px dashed #333;
+  border-radius: 8px;
+  padding: 32px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-bottom: 32px;
+}
+
+.uploadZone:hover {
+  border-color: #444;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.uploadZone.dragover {
+  border-color: #648dff;
+  background: rgba(100, 141, 255, 0.05);
+}
+
+.uploadIcon {
+  font-size: 24px;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.uploadText {
+  font-size: 13px;
+  color: #666;
+}
+
+.uploadText strong {
+  color: #ededed;
+}
+
+.section {
+  margin-bottom: 28px;
+}
+
+.sectionTitle {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.control {
+  margin-bottom: 20px;
+}
+
+.controlHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.control label {
+  font-size: 13px;
+  color: #888;
+}
+
+.controlValue {
+  font-size: 13px;
+  color: #648dff;
+}
+
+.control input[type='range'] {
+  width: 100%;
+  height: 2px;
+  border-radius: 1px;
+  background: #252525;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.control input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ededed;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+.control input[type='range']::-webkit-slider-thumb:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+.checkboxControl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #888;
+}
+
+.checkboxControl input {
+  width: 16px;
+  height: 16px;
+  accent-color: #648dff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.exportSection {
+  border-top: 1px solid #252525;
+  padding-top: 28px;
+  margin-top: 28px;
+}
+
+.exportOptions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.exportOption {
+  padding: 12px 8px;
+  background: transparent;
+  border: 1px solid #252525;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exportOption:hover {
+  border-color: #333;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.exportOption.selected {
+  border-color: #648dff;
+  background: rgba(100, 141, 255, 0.08);
+}
+
+.exportOption .scale {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ededed;
+}
+
+.exportOption .label {
+  font-size: 10px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.exportBtn {
+  width: 100%;
+  padding: 12px;
+  background: #ededed;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.exportBtn:hover {
+  background: #fff;
+}
+
+.exportBtn:disabled {
+  background: #1a1a1a;
+  color: #444;
+  cursor: not-allowed;
+}
+
+.imageInfo {
+  font-size: 12px;
+  color: #444;
+  margin-top: 20px;
+  padding: 12px;
+  background: #0a0a0a;
+  border: 1px solid #252525;
+  border-radius: 6px;
+  line-height: 1.6;
+}
+
+.imageInfo span {
+  color: #666;
+}
+
+.viewToggle {
+  display: flex;
+  background: #0a0a0a;
+  border: 1px solid #252525;
+  border-radius: 6px;
+  padding: 3px;
+  margin-bottom: 20px;
+}
+
+.viewBtn {
+  flex: 1;
+  padding: 8px 12px;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-family: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.viewBtn:hover {
+  color: #888;
+}
+
+.viewBtn.active {
+  background: #ededed;
+  color: #000;
+}
+
+.control select {
+  width: 100%;
+  padding: 10px 12px;
+  background: #0a0a0a;
+  border: 1px solid #252525;
+  border-radius: 6px;
+  color: #ededed;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.control select:focus {
+  border-color: #648dff;
+}
+
+.bgRemovalSettings {
+  margin-top: 12px;
+}

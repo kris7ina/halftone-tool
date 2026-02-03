@@ -1,0 +1,116 @@
+.canvasArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0a0a0a;
+  position: relative;
+  overflow: auto;
+}
+
+.canvasContainer {
+  position: relative;
+  background: repeating-conic-gradient(#141414 0% 25%, #0a0a0a 0% 50%) 50% / 16px 16px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.canvasContainer canvas {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 48px);
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  text-align: center;
+  padding: 48px;
+}
+
+.placeholderIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.placeholderText {
+  font-size: 13px;
+  color: #444;
+}
+
+.zoomControls {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 1px;
+  background: #252525;
+  padding: 1px;
+  border-radius: 6px;
+}
+
+.zoomBtn {
+  width: 32px;
+  height: 32px;
+  background: #0a0a0a;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.zoomBtn:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.zoomBtn:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.zoomBtn:hover {
+  background: #141414;
+  color: #ededed;
+}
+
+.zoomLevel {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  font-size: 12px;
+  color: #666;
+  background: #0a0a0a;
+}
+
+.processing {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #252525;
+  border-top-color: #648dff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
