@@ -98,8 +98,11 @@ export default function HalftoneTool() {
       const width = originalImage.width;
       const height = originalImage.height;
 
-      canvas.width = width;
-      canvas.height = height;
+      // Only set canvas dimensions if they changed (prevents flashing)
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+      }
 
       ctx.drawImage(originalImage, 0, 0);
 
