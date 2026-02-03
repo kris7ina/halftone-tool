@@ -1,6 +1,6 @@
 .sidebar {
   background: #000;
-  padding: 24px;
+  padding: 24px 20px 24px 24px;
   border-right: 1px solid #252525;
   overflow-y: auto;
   height: 100vh;
