@@ -68,7 +68,7 @@ export default function Sidebar({
   return (
     <aside className={styles.sidebar}>
       <h1>Bitmap Converter</h1>
-<parameter name="p className={styles.subtitle}>Image → Bitmap converter</p>
+      <p className={styles.subtitle}>Image → Bitmap converter</p>
 
       <div
         className={styles.uploadZone}
