@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import styles from './CanvasArea.module.css';
 
 interface CanvasAreaProps {
-  canvasRef: React.RefObject<HTMLCanvasElement>;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
   imageLoaded: boolean;
   isProcessing: boolean;
   zoom: number;
