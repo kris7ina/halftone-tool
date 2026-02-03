@@ -3,6 +3,7 @@
   padding: 24px;
   border-right: 1px solid #252525;
   overflow-y: auto;
+  height: 100vh;
 }
 
 .sidebar h1 {

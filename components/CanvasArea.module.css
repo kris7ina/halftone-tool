@@ -6,6 +6,7 @@
   background: #0a0a0a;
   position: relative;
   overflow: auto;
+  height: 100vh;
 }
 
 .canvasContainer {
@@ -17,7 +18,7 @@
 
 .canvasContainer canvas {
   display: block;
-  max-width: 100%;
+  max-width: calc(100vw - 340px - 48px);
   max-height: calc(100vh - 48px);
 }
 
@@ -44,13 +45,14 @@
 
 .zoomControls {
   position: absolute;
-  bottom: 24px;
+  top: 24px;
   right: 24px;
   display: flex;
   gap: 1px;
   background: #252525;
   padding: 1px;
   border-radius: 6px;
+  z-index: 20;
 }
 
 .zoomBtn {
