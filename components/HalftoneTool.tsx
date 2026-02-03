@@ -187,7 +187,7 @@ export default function HalftoneTool() {
     if (originalImage) {
       debouncedProcess();
     }
-  }, [settings, currentView, originalImage, debouncedProcess]);
+  }, [originalImage, debouncedProcess]);
 
   const handleImageLoad = (file: File) => {
     const reader = new FileReader();
